@@ -35,7 +35,7 @@ const submit = () => {
                     v-model="form.name"
                     required
                     autofocus
-                    autocomplete="name"
+                   
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
@@ -50,7 +50,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.correo"
                     required
-                    autocomplete="username"
+                    
                 />
 
                 <InputError class="mt-2" :message="form.errors.correo" />
@@ -65,7 +65,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.clave"
                     required
-                    autocomplete="new-password"
+                    
                 />
 
                 <InputError class="mt-2" :message="form.errors.clave" />
@@ -80,7 +80,7 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.clave_confirmation"
                     required
-                    autocomplete="new-password"
+                   
                 />
 
                 <InputError class="mt-2" :message="form.errors.clave_confirmation" />

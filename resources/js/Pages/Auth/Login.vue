@@ -24,7 +24,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+        onFinish: () => form.reset('clave'),
     });
 };
 </script>
@@ -39,34 +39,32 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="correo" value="Correo electrónico" />
 
                 <TextInput
-                    id="email"
+                    id="correo"
                     type="email"
                     class="mt-1 block w-full"
-                    v-model="form.email"
+                    v-model="form.correo"
                     required
-                    autofocus
-                    autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.correo" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="clave" value="Contraseña" />
 
                 <TextInput
-                    id="password"
+                    id="clave"
                     type="password"
                     class="mt-1 block w-full"
-                    v-model="form.password"
+                    v-model="form.clave"
                     required
-                    autocomplete="current-password"
+                    
                 />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.clave" />
             </div>
 
             <div class="mt-4 block">

@@ -8,10 +8,13 @@ use Inertia\Inertia;
 
 class ClienteController extends Controller
 {
-    public function dashboard()
+    
+public function dashboard()
 {
     return Inertia::render('Cliente/Dashboard', [
-        'usuario' => Auth::user(),
+        'auth' => [
+            'user' => Auth::user()
+        ]
     ]);
 }
 
