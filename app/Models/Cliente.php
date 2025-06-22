@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    protected $table = 'cliente';
-    protected $primaryKey = 'carnet';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $table = 'clientes';
+    protected $primaryKey = 'id'; // Ahora es 'id'
+    public $incrementing = true;   // Ahora es auto-incrementable
+    protected $keyType = 'int';    // Ahora es integer
 
     protected $fillable = [
         'carnet',
         'nombre',
-        'ci',
         'nit',
         'correo',
         'empresa',

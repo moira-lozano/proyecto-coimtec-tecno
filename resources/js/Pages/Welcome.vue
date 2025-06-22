@@ -1,6 +1,8 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
+import 'flowbite';
 
+// Recibir props desde Laravel
 defineProps({
     canLogin: {
         type: Boolean,
@@ -18,6 +20,7 @@ defineProps({
     },
 });
 
+// Control de errores de imagen (si decides mostrar una en el futuro)
 function handleImageError() {
     document.getElementById('screenshot-container')?.classList.add('!hidden');
     document.getElementById('docs-card')?.classList.add('!row-span-1');
@@ -25,7 +28,7 @@ function handleImageError() {
     document.getElementById('background')?.classList.add('!hidden');
 }
 
-// Obtener versiones de Laravel y PHP para mostrar en el footer
+// También puedes acceder a otras props globales de la página si deseas
 const page = usePage();
 const laravelVersion = page.props.laravelVersion || 'unknown';
 const phpVersion = page.props.phpVersion || 'unknown';
@@ -45,6 +48,7 @@ const phpVersion = page.props.phpVersion || 'unknown';
 
     <div class="space-x-4">
       <Link
+        v-if="canLogin"
         :href="route('login')"
         class="px-6 py-3 bg-white text-indigo-600 font-semibold rounded shadow hover:bg-gray-100 transition"
       >
@@ -52,6 +56,7 @@ const phpVersion = page.props.phpVersion || 'unknown';
       </Link>
 
       <Link
+        v-if="canRegister"
         :href="route('register')"
         class="px-6 py-3 bg-indigo-700 hover:bg-indigo-900 rounded font-semibold shadow transition"
       >
@@ -64,7 +69,3 @@ const phpVersion = page.props.phpVersion || 'unknown';
     </footer>
   </div>
 </template>
-
-<style scoped>
-/* Estilos personalizados aquí */
-</style>

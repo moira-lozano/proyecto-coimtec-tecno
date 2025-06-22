@@ -6,15 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('clientes', function (Blueprint $table) {
-            $table->string('carnet')->primary();
+            $table->id(); // ahora es la clave primaria
+            $table->string('carnet')->unique(); // solo un campo más, pero único
             $table->string('nombre');
-            $table->string('ci')->unique()->nullable();
             $table->string('nit')->nullable();
             $table->string('correo')->unique()->nullable();
             $table->boolean('empresa')->default(false);
@@ -28,9 +25,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('clientes');

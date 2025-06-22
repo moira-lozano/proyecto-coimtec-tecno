@@ -39,4 +39,7 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest');
 
 
+Route::resource('clientes', ClienteController::class);
+
+
 require __DIR__.'/auth.php';

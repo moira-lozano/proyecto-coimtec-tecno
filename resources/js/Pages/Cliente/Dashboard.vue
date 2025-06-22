@@ -1,7 +1,8 @@
 <script setup>
 import FlowbiteLayout from '@/Layouts/FlowbiteLayout.vue';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
-defineOptions({ layout: FlowbiteLayout });
+defineOptions({ layout: AuthenticatedLayout });
 
 defineProps({
   auth: Object
@@ -9,8 +10,8 @@ defineProps({
 </script>
 
 <template>
-  <div class="bg-white p-6 rounded shadow">
-    <h2 class="text-xl font-bold mb-2">Bienvenido</h2>
-    <p>{{ auth.user.email }}</p>
-  </div>
+    <div class="p-0 m-0">
+      <h2 class="text-xl font-bold mb-2">Bienvenido</h2>
+        <p>{{ auth.user.email }}</p>
+    </div>
 </template>
