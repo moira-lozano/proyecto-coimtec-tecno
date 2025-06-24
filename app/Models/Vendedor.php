@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vendedor extends Model
 {
-    protected $table = 'vendedor';
-    protected $primaryKey = 'carnet';
-    public $incrementing = false;
-    protected $keyType = 'string';
+    protected $table = 'vendedores';
+   protected $primaryKey = 'id'; // Ahora es 'id'
+    public $incrementing = true;   // Ahora es auto-incrementable
+    protected $keyType = 'int';    // Ahora es integer
 
     protected $fillable = [
         'carnet',

@@ -1,28 +1,25 @@
 <?php
-// app/Providers/RouteServiceProvider.php
+// archivo: app/Providers/AppServiceProvider.php
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
-
-class RouteServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    public const HOME = '/cliente/dashboard'; // puedes cambiar según el rol luego
-
     public function boot()
     {
-        parent::boot();
+        Inertia::share([
+            'auth' => [
+                'user' => fn () => Auth::check() ? Auth::user() : null,
+            ],
+        ]);
     }
 
-    public function map()
+    public function register()
     {
-        //
+        
     }
 }

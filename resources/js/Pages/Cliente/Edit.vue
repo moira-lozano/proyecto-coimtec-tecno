@@ -22,7 +22,7 @@ const form = useForm({
 });
 
 const submit = () => {
-  form.put(route('clientes.update', cliente.id)); // Usa cliente.id
+  form.post(route('clientes.update', cliente.id)); // Usa cliente.id
 };
 </script>
 

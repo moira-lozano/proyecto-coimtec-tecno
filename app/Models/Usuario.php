@@ -36,5 +36,24 @@ class Usuario extends Authenticatable
     {
         return $this->hasOne(Vendedor::class, 'id_usuario');
     }
+
+    public function isAdmin()
+    {
+        return $this->rol === 'administrador';
+    }
+
+    public function isVendedor()
+    {
+        return $this->rol === 'vendedor';
+    }
+    public function isCliente()
+    {
+        return $this->rol === 'cliente';
+    }
+
+    public function isClienteCanal()
+    {
+        return $this->rol === 'cliente-canal';
+    }
 }
 
