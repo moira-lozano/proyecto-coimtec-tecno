@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('correo')->unique();
             $table->string('clave');
-            $table->enum('rol', ['cliente', 'cliente-canal', 'vendedor', 'administrador']);
+            $table->string('nombre');
             $table->timestamps();
         });
     }

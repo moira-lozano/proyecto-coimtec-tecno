@@ -67,8 +67,8 @@ const submit = () => {
         <p v-if="form.errors.rol" class="text-red-600 text-sm mt-1">{{ form.errors.rol }}</p>
       </div>
 
-      <!-- Carnet del Vendedor -->
-      <div>
+      <!-- Carnet del Vendedor (solo si el rol es vendedor) -->
+      <div v-if="form.rol === 'vendedor'">
         <label class="block text-sm font-medium text-gray-700">Carnet</label>
         <input v-model="form.carnet" type="text" class="mt-1 block w-full rounded border-gray-300" required />
         <p v-if="form.errors.carnet" class="text-red-600 text-sm mt-1">{{ form.errors.carnet }}</p>

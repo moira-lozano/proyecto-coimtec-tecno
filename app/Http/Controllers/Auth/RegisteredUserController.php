@@ -24,7 +24,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255',
             'correo' => 'required|string|email|max:255|unique:usuarios,correo',
             'clave' => 'required|string|confirmed|min:8',
         ]);
@@ -33,10 +33,12 @@ class RegisteredUserController extends Controller
             'nombre' => $request->name,
             'correo' => $request->correo,
             'clave' => Hash::make($request->clave),
-            'rol' => 'cliente',
+            //'rol' => 'cliente',
         ]);
 
         Auth::login($user);
+        $user->assignRole('administrador'); // Asignar rol por defecto
+
 
         return redirect(RouteServiceProvider::HOME); // asegurarte de tenerla importada y definida
     }

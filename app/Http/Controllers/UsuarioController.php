@@ -40,18 +40,19 @@ class UsuarioController extends Controller
     {
         $request->validate([
             'correo' => 'required|email|unique:usuarios,correo',
-            'clave' => 'required|min:6',
-            'rol' => ['required', 'string', Rule::in(['administrador', 'vendedor', 'cliente', 'cliente-canal'])],
+            'clave' => 'required|min:6|confirmed',
             'nombre' => 'required|string|max:255',
             'carnet' => 'required|string|max:255',
+            'rol' => ['required', Rule::in(['cliente', 'vendedor', 'cliente-canal'])],
         ]);
 
         $usuario = Usuario::create([
             'correo' => $request->correo,
             'clave' => Hash::make($request->clave),
-            'rol' => (string) $request->rol,
             'nombre' => $request->nombre,
         ]);
+
+        $usuario->assignRole($request->rol);
 
         if ($request->rol === 'vendedor') {
             Vendedor::create([
@@ -62,12 +63,13 @@ class UsuarioController extends Controller
         }
 
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuario y Vendedor registrados');
+        return redirect()->route('usuarios.index')->with('success', 'Usuario registrados');
     }
 
     public function edit(Usuario $usuario)
     {
-        $usuario->load('vendedor'); // Asegúrate de tener esta relación en el modelo Usuario
+        $usuario->load('vendedor');
+        $usuario->rol = $usuario->getRoleNames()->first(); // 👈 agrega esta línea
 
         return Inertia::render('Usuario/Edit', [
             'usuario' => $usuario,

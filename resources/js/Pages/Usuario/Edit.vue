@@ -1,26 +1,27 @@
 <script setup>
 import { useForm, Head, Link } from '@inertiajs/vue3';
-import { onMounted } from 'vue';
+import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
   usuario: Object,
 });
 
+const editarRol = ref(false); // 👈 checkbox para decidir si se quiere editar el rol
+
 const form = useForm({
   nombre: props.usuario.nombre,
   correo: props.usuario.correo,
   clave: '',
-  rol: props.usuario.rol,
+  rol: props.usuario.rol || '', // aseguramos string
   carnet: props.usuario.vendedor?.carnet || '',
-  nombre_vendedor: props.usuario.vendedor?.nombre || '',
 });
-
 
 const submit = () => {
   form.post(route('usuarios.update', props.usuario.id));
 };
 </script>
+
 
 <template>
     <AuthenticatedLayout>
@@ -50,15 +51,24 @@ const submit = () => {
                 <input v-model="form.clave" type="password" class="mt-1 block w-full rounded border-gray-300" />
             </div>
 
+             <!-- Pregunta para editar el rol -->
             <div>
+                <label class="inline-flex items-center">
+                <input type="checkbox" v-model="editarRol" class="rounded border-gray-300 mr-2" />
+                ¿Desea modificar el rol?
+                </label>
+            </div>
+
+            <!-- Rol -->
+            <div v-if="editarRol">
                 <label class="block text-sm font-medium text-gray-700">Rol</label>
-                <select v-model="form.rol" class="mt-1 block w-full rounded border-gray-300" required>
+                <select v-model="form.rol" class="mt-1 block w-full rounded border-gray-300">
                 <option value="">Seleccione un rol</option>
-                <option value="administrador">Admin</option>
                 <option value="vendedor">Vendedor</option>
                 <option value="cliente">Cliente</option>
                 <option value="cliente-canal">Cliente Canal</option>
                 </select>
+                <p v-if="form.errors.rol" class="text-red-600 text-sm mt-1">{{ form.errors.rol }}</p>
             </div>
 
             <div>

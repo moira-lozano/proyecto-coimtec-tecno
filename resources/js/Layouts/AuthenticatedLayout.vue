@@ -10,6 +10,7 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 const sidebarOpen = ref(false);
 const { props } = usePage();
 const user = props.auth?.user;
+console.log('User:', user);
 </script>
 
 <template>
@@ -44,7 +45,7 @@ const user = props.auth?.user;
           </li>
 
           <!-- Solo administrador -->
-          <template v-if="user?.rol === 'administrador'">
+          <template v-if="user?.roles?.includes('administrador')">
             <li>
               <Link href="/clientes" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
                     :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/clientes') }">
@@ -83,7 +84,7 @@ const user = props.auth?.user;
           </template>
 
           <!-- ADMIN y VENDEDOR -->
-          <template v-if="['administrador', 'vendedor'].includes(user?.rol)">
+          <template v-if="user?.roles?.some(r => ['administrador', 'vendedor'].includes(r))">
             <li>
               <Link href="/ventas" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
                     :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/ventas') }">

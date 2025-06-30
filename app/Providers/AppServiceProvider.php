@@ -1,5 +1,4 @@
 <?php
-// archivo: app/Providers/AppServiceProvider.php
 
 namespace App\Providers;
 
@@ -9,17 +8,28 @@ use Inertia\Inertia;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public function register()
+    {
+        // Puedes registrar bindings aquí si es necesario
+    }
+
     public function boot()
     {
         Inertia::share([
             'auth' => [
-                'user' => fn () => Auth::check() ? Auth::user() : null,
+                'user' => function () {
+                    $user = Auth::user();
+
+                    if (!$user) return null;
+
+                    return [
+                        'id' => $user->id,
+                        'name' => $user->nombre,
+                        'email' => $user->correo,
+                        'roles' => $user->getRoleNames(), // 👈 esto debe devolver un array con los nombres de roles
+                    ];
+                },
             ],
         ]);
-    }
-
-    public function register()
-    {
-        
     }
 }
