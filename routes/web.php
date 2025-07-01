@@ -50,8 +50,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/', 'store')->name('store');
         Route::get('/{usuario}', 'show')->name('show');
         Route::get('/{usuario}/edit', 'edit')->name('edit');
-        Route::post('/{usuario}', 'update')->name('update');
-        Route::post('/{usuario}', 'destroy')->name('destroy');
+        Route::put('/{usuario}', 'update')->name('update');
+        Route::delete('/{usuario}', 'destroy')->name('destroy');
     });
 
     // Dashboard según el rol
@@ -65,3 +65,4 @@ Route::post('/register', [RegisteredUserController::class, 'store'])->middleware
 
 // Login y autenticación
 require __DIR__.'/auth.php';
+

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,41 +20,20 @@ class AuthenticatedSessionController extends Controller
     {
         return Inertia::render('Auth/Login', [
             'canResetPassword' => Route::has('password.request'),
-            'status'           => session('status'),
+            'status' => session('status'),
         ]);
     }
 
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(LoginRequest $request): RedirectResponse
     {
-        $request->validate([
-            'correo' => ['required', 'email'],
-            'clave'  => ['required'],
-        ]);
-
-        // Intentar login usando el campo 'correo' y 'clave'
-        if (! Auth::attempt([
-            'correo'   => $request->correo,
-            'password' => $request->clave
-        ], $request->boolean('remember'))) {
-            return back()->withErrors([
-                'correo' => 'Las credenciales no coinciden.',
-            ]);
-        }
+        $request->authenticate();
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-
-        // Redirección según rol
-        return match ($user->rol) {
-            'cliente'       => redirect()->route('cliente.dashboard'),
-            'vendedor'      => redirect()->route('usuario.dashboard'),
-            'administrador' => redirect()->route('usuario.dashboard'),
-            default         => redirect()->route('dashboard'),
-        };
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**
@@ -64,8 +44,9 @@ class AuthenticatedSessionController extends Controller
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
+
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        return redirect('/');
     }
 }

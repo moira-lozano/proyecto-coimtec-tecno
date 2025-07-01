@@ -2,17 +2,26 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Blade;
+use Spatie\Permission\Models\Permission;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    /**
+     * Register any application services.
+     */
+    public function register(): void
     {
-        // Puedes registrar bindings aquí si es necesario
+        //
     }
 
+    /**
+     * Bootstrap any application services.
+     */
     public function boot()
     {
         Inertia::share('auth.user', function () {
@@ -20,8 +29,8 @@ class AppServiceProvider extends ServiceProvider
                 return [
                     'id' => Auth::id(),
                     'name' => Auth::user()->nombre,
-                    'roles' => Auth::user()->getRoleNames(), // roles
-                    'permissions' => Auth::user()->getAllPermissions()->pluck('name'), // permisos
+                    'roles' => Auth::user()->getRoleNames(),
+                    'permissions' => Auth::user()->getAllPermissions()->pluck('name'),
                 ];
             }
             return null;

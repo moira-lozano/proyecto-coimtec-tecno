@@ -19,10 +19,13 @@ class DatabaseSeeder extends Seeder
             'ver ventas',
             'ver reportes',
             'gestionar clientes',
-            'ver finanzas',
             'ver inventario',
             'ver pagos',
             'gestionar usuarios',
+            'ver marcas',
+            'ver categorias',
+            'ver licencias',
+
         ];
 
         foreach ($permisos as $permiso) {
@@ -37,7 +40,7 @@ class DatabaseSeeder extends Seeder
         $admin->givePermissionTo(['gestionar usuarios', 'gestionar clientes']);
 
         $encargado_almacen = Role::firstOrCreate(['name' => 'encargado_almacen', 'guard_name' => 'web']);
-        $encargado_almacen->givePermissionTo(['ver finanzas', 'ver inventario', 'ver pagos']);
+        $encargado_almacen->givePermissionTo(['ver marcas', 'ver categorias', 'ver licencias']);
 
         $encargado_comercial = Role::firstOrCreate(['name' => 'encargado_comercial', 'guard_name' => 'web']);
         $encargado_comercial->givePermissionTo(['ver ventas', 'ver reportes', 'gestionar clientes']);

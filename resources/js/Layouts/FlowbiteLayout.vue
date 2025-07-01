@@ -1,30 +1,30 @@
 <template>
-  <div class="flex h-screen bg-gray-50 dark:bg-gray-900">
+  <div class="flex h-screen bg-gray-50">
     <!-- Sidebar -->
     <aside
-      :class="['fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700', { '-translate-x-full': !sidebarOpen }]"
+      :class="['fixed top-0 left-0 z-40 w-64 h-screen transition-transform bg-white border-r border-gray-200 sm:translate-x-0', { '-translate-x-full': !sidebarOpen }]"
       aria-label="Sidebar"
     >
-      <div class="h-full px-3 py-4 overflow-y-auto bg-white dark:bg-gray-800">
-        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Mi Panel</h2>
+      <div class="h-full px-3 py-4 overflow-y-auto bg-white">
+        <h2 class="text-xl font-bold text-gray-900 mb-4">Mi Panel</h2>
         <ul class="space-y-2">
           <li>
-            <Link href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+            <Link href="/dashboard" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
               <span class="ml-3">Dashboard</span>
             </Link>
           </li>
           <li>
-            <Link href="/perfil" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+            <Link href="/perfil" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
               <span class="ml-3">Perfil</span>
             </Link>
           </li>
           <li>
-            <Link href="/clientes" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+            <Link href="/clientes" class="flex items-center p-2 text-gray-900 rounded-lg hover:bg-gray-100">
               <span class="ml-3">Clientes</span>
             </Link>
           </li>
           <li>
-            <Link href="/logout" method="post" as="button" class="flex items-center p-2 text-red-600 hover:bg-red-50 dark:hover:bg-gray-700">
+            <Link href="/logout" method="post" as="button" class="flex items-center p-2 text-red-600 hover:bg-red-50">
               <span class="ml-3">Cerrar sesión</span>
             </Link>
           </li>
@@ -35,11 +35,11 @@
     <!-- Main content -->
     <div class="flex-1 flex flex-col sm:ml-64">
       <!-- Top bar -->
-      <header class="bg-white shadow dark:bg-gray-800">
+      <header class="bg-white shadow">
         <div class="flex items-center justify-between p-4">
           <button
             @click="sidebarOpen = !sidebarOpen"
-            class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-700"
+            class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none"
           >
             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
               <path
@@ -49,7 +49,7 @@
               />
             </svg>
           </button>
-          <h1 class="text-xl font-semibold text-gray-900 dark:text-white">Mi Panel</h1>
+          <h1 class="text-xl font-semibold text-gray-900">Mi Panel</h1>
         </div>
       </header>
 

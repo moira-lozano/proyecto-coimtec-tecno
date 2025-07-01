@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc2784f74487bfac2880675f97e431df1
+class ComposerStaticInitb7636b60a9e3e2d74aca9551fc88e4be
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -553,15 +553,21 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'App\\Http\\Controllers\\Auth\\PasswordResetLinkController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/PasswordResetLinkController.php',
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
+        'App\\Http\\Controllers\\CategoriaController' => __DIR__ . '/../..' . '/app/Http/Controllers/CategoriaController.php',
         'App\\Http\\Controllers\\ClienteController' => __DIR__ . '/../..' . '/app/Http/Controllers/ClienteController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\LicenciaController' => __DIR__ . '/../..' . '/app/Http/Controllers/LicenciaController.php',
+        'App\\Http\\Controllers\\MarcaController' => __DIR__ . '/../..' . '/app/Http/Controllers/MarcaController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
         'App\\Http\\Controllers\\UsuarioController' => __DIR__ . '/../..' . '/app/Http/Controllers/UsuarioController.php',
         'App\\Http\\Controllers\\VendedorController' => __DIR__ . '/../..' . '/app/Http/Controllers/VendedorController.php',
         'App\\Http\\Middleware\\HandleInertiaRequests' => __DIR__ . '/../..' . '/app/Http/Middleware/HandleInertiaRequests.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
+        'App\\Models\\Categoria' => __DIR__ . '/../..' . '/app/Models/Categoria.php',
         'App\\Models\\Cliente' => __DIR__ . '/../..' . '/app/Models/Cliente.php',
+        'App\\Models\\Licencia' => __DIR__ . '/../..' . '/app/Models/Licencia.php',
+        'App\\Models\\Marca' => __DIR__ . '/../..' . '/app/Models/Marca.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\Usuario' => __DIR__ . '/../..' . '/app/Models/Usuario.php',
         'App\\Models\\Vendedor' => __DIR__ . '/../..' . '/app/Models/Vendedor.php',
@@ -1922,6 +1928,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Illuminate\\Contracts\\Support\\CanBeEscapedWhenCastToString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/CanBeEscapedWhenCastToString.php',
         'Illuminate\\Contracts\\Support\\DeferrableProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/DeferrableProvider.php',
         'Illuminate\\Contracts\\Support\\DeferringDisplayableValue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/DeferringDisplayableValue.php',
+        'Illuminate\\Contracts\\Support\\HasOnceHash' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/HasOnceHash.php',
         'Illuminate\\Contracts\\Support\\Htmlable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/Htmlable.php',
         'Illuminate\\Contracts\\Support\\Jsonable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/Jsonable.php',
         'Illuminate\\Contracts\\Support\\MessageBag' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/MessageBag.php',
@@ -2007,6 +2014,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Illuminate\\Database\\Eloquent\\Attributes\\ObservedBy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/ObservedBy.php',
         'Illuminate\\Database\\Eloquent\\Attributes\\Scope' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/Scope.php',
         'Illuminate\\Database\\Eloquent\\Attributes\\ScopedBy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/ScopedBy.php',
+        'Illuminate\\Database\\Eloquent\\Attributes\\UseEloquentBuilder' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/UseEloquentBuilder.php',
         'Illuminate\\Database\\Eloquent\\Attributes\\UseFactory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/UseFactory.php',
         'Illuminate\\Database\\Eloquent\\Attributes\\UsePolicy' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Attributes/UsePolicy.php',
         'Illuminate\\Database\\Eloquent\\BroadcastableModelEventOccurred' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/BroadcastableModelEventOccurred.php',
@@ -2020,6 +2028,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Illuminate\\Database\\Eloquent\\Casts\\AsEncryptedCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEncryptedCollection.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsEnumArrayObject' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEnumArrayObject.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsEnumCollection' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEnumCollection.php',
+        'Illuminate\\Database\\Eloquent\\Casts\\AsFluent' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsFluent.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsHtmlString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsHtmlString.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsStringable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsStringable.php',
         'Illuminate\\Database\\Eloquent\\Casts\\AsUri' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsUri.php',
@@ -2580,6 +2589,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Illuminate\\Queue\\LuaScripts' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/LuaScripts.php',
         'Illuminate\\Queue\\ManuallyFailedException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/ManuallyFailedException.php',
         'Illuminate\\Queue\\MaxAttemptsExceededException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/MaxAttemptsExceededException.php',
+        'Illuminate\\Queue\\Middleware\\FailOnException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Middleware/FailOnException.php',
         'Illuminate\\Queue\\Middleware\\RateLimited' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Middleware/RateLimited.php',
         'Illuminate\\Queue\\Middleware\\RateLimitedWithRedis' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Middleware/RateLimitedWithRedis.php',
         'Illuminate\\Queue\\Middleware\\Skip' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Middleware/Skip.php',
@@ -2962,6 +2972,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Inertia\\Testing\\Concerns\\Interaction' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/Concerns/Interaction.php',
         'Inertia\\Testing\\Concerns\\Matching' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/Concerns/Matching.php',
         'Inertia\\Testing\\Concerns\\PageObject' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/Concerns/PageObject.php',
+        'Inertia\\Testing\\ReloadRequest' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/ReloadRequest.php',
         'Inertia\\Testing\\TestResponseMacros' => __DIR__ . '/..' . '/inertiajs/inertia-laravel/src/Testing/TestResponseMacros.php',
         'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
         'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
@@ -6200,6 +6211,7 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
         'Symfony\\Component\\HttpKernel\\Fragment\\RoutableFragmentRenderer' => __DIR__ . '/..' . '/symfony/http-kernel/Fragment/RoutableFragmentRenderer.php',
         'Symfony\\Component\\HttpKernel\\Fragment\\SsiFragmentRenderer' => __DIR__ . '/..' . '/symfony/http-kernel/Fragment/SsiFragmentRenderer.php',
         'Symfony\\Component\\HttpKernel\\HttpCache\\AbstractSurrogate' => __DIR__ . '/..' . '/symfony/http-kernel/HttpCache/AbstractSurrogate.php',
+        'Symfony\\Component\\HttpKernel\\HttpCache\\CacheWasLockedException' => __DIR__ . '/..' . '/symfony/http-kernel/HttpCache/CacheWasLockedException.php',
         'Symfony\\Component\\HttpKernel\\HttpCache\\Esi' => __DIR__ . '/..' . '/symfony/http-kernel/HttpCache/Esi.php',
         'Symfony\\Component\\HttpKernel\\HttpCache\\HttpCache' => __DIR__ . '/..' . '/symfony/http-kernel/HttpCache/HttpCache.php',
         'Symfony\\Component\\HttpKernel\\HttpCache\\ResponseCacheStrategy' => __DIR__ . '/..' . '/symfony/http-kernel/HttpCache/ResponseCacheStrategy.php',
@@ -6809,9 +6821,9 @@ class ComposerStaticInitc2784f74487bfac2880675f97e431df1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc2784f74487bfac2880675f97e431df1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc2784f74487bfac2880675f97e431df1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc2784f74487bfac2880675f97e431df1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb7636b60a9e3e2d74aca9551fc88e4be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb7636b60a9e3e2d74aca9551fc88e4be::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb7636b60a9e3e2d74aca9551fc88e4be::$classMap;
 
         }, null, ClassLoader::class);
     }

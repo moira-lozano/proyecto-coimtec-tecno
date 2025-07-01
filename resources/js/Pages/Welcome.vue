@@ -1,71 +1,42 @@
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import 'flowbite';
 
-// Recibir props desde Laravel
-defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
-    laravelVersion: {
-        type: String,
-        required: true,
-    },
-    phpVersion: {
-        type: String,
-        required: true,
-    },
-});
-
-// Control de errores de imagen (si decides mostrar una en el futuro)
-function handleImageError() {
-    document.getElementById('screenshot-container')?.classList.add('!hidden');
-    document.getElementById('docs-card')?.classList.add('!row-span-1');
-    document.getElementById('docs-card-content')?.classList.add('!flex-row');
-    document.getElementById('background')?.classList.add('!hidden');
-}
-
-// También puedes acceder a otras props globales de la página si deseas
 const page = usePage();
-const laravelVersion = page.props.laravelVersion || 'unknown';
-const phpVersion = page.props.phpVersion || 'unknown';
+const canLogin = page.props.canLogin;
+const canRegister = page.props.canRegister;
+const laravelVersion = page.props.laravelVersion;
+const phpVersion = page.props.phpVersion;
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex flex-col justify-center items-center text-white px-4">
-    <Head title="Welcome" />
+  <Head title="Bienvenido" />
 
-    <h1 class="text-5xl font-extrabold mb-6 drop-shadow-lg">
-      ¡Bienvenido a Mi App!
-    </h1>
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-white flex flex-col items-center justify-center px-4">
+    <!-- Logo -->
+    <div class="mb-6">
+      <img src="https://laravel.com/img/logomark.min.svg" class="h-16" alt="Laravel" />
+    </div>
 
-    <p class="text-lg mb-10 max-w-xl text-center drop-shadow">
-      E-commerce de ventas de licencias.
-    </p>
+    <!-- Título -->
+    <h1 class="text-3xl font-bold mb-2">Bienvenido al sistema</h1>
+    <p class="text-center mb-6 text-sm text-gray-500">Laravel v{{ laravelVersion }} / PHP v{{ phpVersion }}</p>
 
-    <div class="space-x-4">
+    <!-- Botones de acceso -->
+    <div class="space-x-4" v-if="canLogin">
       <Link
-        v-if="canLogin"
         :href="route('login')"
-        class="px-6 py-3 bg-white text-indigo-600 font-semibold rounded shadow hover:bg-gray-100 transition"
+        class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition"
       >
-        Iniciar sesión
+        Iniciar Sesión
       </Link>
 
       <Link
         v-if="canRegister"
         :href="route('register')"
-        class="px-6 py-3 bg-indigo-700 hover:bg-indigo-900 rounded font-semibold shadow transition"
+        class="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
       >
         Registrarse
       </Link>
     </div>
-
-    <footer class="mt-20 text-sm opacity-70">
-      Laravel v{{ laravelVersion }} • PHP v{{ phpVersion }}
-    </footer>
   </div>
 </template>
