@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Usuario;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -50,12 +50,14 @@ class DatabaseSeeder extends Seeder
         $vendedor = Role::firstOrCreate(['name' => 'vendedor', 'guard_name' => 'web']);
         $vendedor->givePermissionTo(['ver ventas']);
 
-        // USUARIO SUPER ADMIN
-        $user = User::firstOrCreate([
+        $user = Usuario::firstOrCreate([
             'correo' => 'admin@example.com',
         ], [
             'nombre' => 'Gerente General',
             'clave' => bcrypt('password'),
         ]);
+
+        $user->assignRole('super-admin');
+
     }
 }
