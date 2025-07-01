@@ -27,17 +27,24 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-    public function share(Request $request): array
+   public function share(Request $request): array
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => fn() => $request->user(),
+                'user' => fn () => $request->user()
+                    ? [
+                        'id' => $request->user()->id,
+                        'nombre' => $request->user()->nombre,
+                        'correo' => $request->user()->correo,
+                        'permissions' => $request->user()->getPermissionNames(), // ← importante
+                    ]
+                    : null,
             ],
-            // ESTO ES LO QUE TE FALTABA - Para los mensajes flash
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),
                 'error' => fn () => $request->session()->get('error'),
             ],
         ]);
     }
+
 }
