@@ -4,20 +4,17 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\Permission\Traits\HasRoles;
 
 class Usuario extends Authenticatable
 {
-    
-    use Notifiable, HasRoles;
-
-    protected $guard_name = 'web';
+    use Notifiable;
 
     protected $table = 'usuarios';
 
     protected $fillable = [
         'correo',
         'clave',
+        'rol',
         'nombre'
     ];
 
@@ -42,21 +39,21 @@ class Usuario extends Authenticatable
 
     public function isAdmin()
     {
-        return $this->hasRole('administrador');
+        return $this->rol === 'administrador';
     }
 
     public function isVendedor()
     {
-        return $this->hasRole('vendedor');
+        return $this->rol === 'vendedor';
     }
     public function isCliente()
     {
-        return $this->hasRole('cliente');
+        return $this->rol === 'cliente';
     }
 
     public function isClienteCanal()
     {
-        return $this->hasRole('cliente-canal');
+        return $this->rol === 'cliente-canal';
     }
 }
 
