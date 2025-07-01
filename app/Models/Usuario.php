@@ -27,6 +27,12 @@ class Usuario extends Authenticatable
         return $this->clave;
     }
 
+    public function getAuthIdentifierName()
+    {
+        return 'correo';
+    }
+
+
     public function cliente()
     {
         return $this->hasOne(Cliente::class, 'id_usuario');
