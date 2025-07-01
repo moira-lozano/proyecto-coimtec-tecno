@@ -4,6 +4,10 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController; 
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\LicenciaController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -65,6 +69,8 @@ Route::controller(UsuarioController::class)->prefix('usuarios')->name('usuarios.
 });
 Route::get('/usuario/dashboard', [UsuarioController::class, 'dashboard'])->name('usuario.dashboard');
 
-
+Route::resource('marcas', MarcaController::class);
+Route::resource('categorias', CategoriaController::class);
+Route::resource('licencias', LicenciaController::class);
 
 require __DIR__.'/auth.php';

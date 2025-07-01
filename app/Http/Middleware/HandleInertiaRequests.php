@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Middleware;
-
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +32,11 @@ class HandleInertiaRequests extends Middleware
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => fn() => $request->user(),
+            ],
+            // ESTO ES LO QUE TE FALTABA - Para los mensajes flash
+            'flash' => [
+                'success' => fn () => $request->session()->get('success'),
+                'error' => fn () => $request->session()->get('error'),
             ],
         ]);
     }
