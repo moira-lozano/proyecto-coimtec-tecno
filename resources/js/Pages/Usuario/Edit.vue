@@ -4,7 +4,8 @@ import { ref } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 
 const props = defineProps({
-  usuario: Object,
+    roles: Array,
+    usuario: Object,
 });
 
 const editarRol = ref(false); // 👈 checkbox para decidir si se quiere editar el rol
@@ -51,25 +52,18 @@ const submit = () => {
                 <input v-model="form.clave" type="password" class="mt-1 block w-full rounded border-gray-300" />
             </div>
 
-             <!-- Pregunta para editar el rol -->
-            <div>
-                <label class="inline-flex items-center">
-                <input type="checkbox" v-model="editarRol" class="rounded border-gray-300 mr-2" />
-                ¿Desea modificar el rol?
-                </label>
-            </div>
-
             <!-- Rol -->
-            <div v-if="editarRol">
+            <div>
                 <label class="block text-sm font-medium text-gray-700">Rol</label>
                 <select v-model="form.rol" class="mt-1 block w-full rounded border-gray-300">
-                <option value="">Seleccione un rol</option>
-                <option value="vendedor">Vendedor</option>
-                <option value="cliente">Cliente</option>
-                <option value="cliente-canal">Cliente Canal</option>
+                    <option value="">Seleccione un rol</option>
+                    <option v-for="rol in roles" :key="rol" :value="rol">
+                    {{ rol.charAt(0).toUpperCase() + rol.slice(1) }}
+                    </option>
                 </select>
                 <p v-if="form.errors.rol" class="text-red-600 text-sm mt-1">{{ form.errors.rol }}</p>
             </div>
+
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Carnet</label>

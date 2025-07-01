@@ -2,6 +2,10 @@
 import { useForm, Head, Link } from '@inertiajs/vue3';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 
+const props = defineProps({
+  roles: Array,
+});
+
 const form = useForm({
   correo: '',
   clave: '',
@@ -59,16 +63,16 @@ const submit = () => {
         <label class="block text-sm font-medium text-gray-700">Rol</label>
         <select v-model="form.rol" class="mt-1 block w-full rounded border-gray-300" required>
           <option value="">Seleccione un rol</option>
-          <option value="administrador">Admin</option>
-          <option value="vendedor">Vendedor</option>
-          <option value="cliente">Cliente</option>
-          <option value="cliente-canal">Cliente Canal</option>
+          <option v-for="rol in roles" :key="rol" :value="rol">
+            {{ rol.charAt(0).toUpperCase() + rol.slice(1) }}
+          </option>
         </select>
         <p v-if="form.errors.rol" class="text-red-600 text-sm mt-1">{{ form.errors.rol }}</p>
       </div>
 
+
       <!-- Carnet del Vendedor (solo si el rol es vendedor) -->
-      <div v-if="form.rol === 'vendedor'">
+      <div>
         <label class="block text-sm font-medium text-gray-700">Carnet</label>
         <input v-model="form.carnet" type="text" class="mt-1 block w-full rounded border-gray-300" required />
         <p v-if="form.errors.carnet" class="text-red-600 text-sm mt-1">{{ form.errors.carnet }}</p>

@@ -15,21 +15,16 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Inertia::share([
-            'auth' => [
-                'user' => function () {
-                    $user = Auth::user();
-
-                    if (!$user) return null;
-
-                    return [
-                        'id' => $user->id,
-                        'name' => $user->nombre,
-                        'email' => $user->correo,
-                        'roles' => $user->getRoleNames(), // 👈 esto debe devolver un array con los nombres de roles
-                    ];
-                },
-            ],
-        ]);
+        Inertia::share('auth.user', function () {
+            if (Auth::check()) {
+                return [
+                    'id' => Auth::id(),
+                    'name' => Auth::user()->nombre,
+                    'roles' => Auth::user()->getRoleNames(), // roles
+                    'permissions' => Auth::user()->getAllPermissions()->pluck('name'), // permisos
+                ];
+            }
+            return null;
+        });
     }
 }

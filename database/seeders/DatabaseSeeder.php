@@ -14,51 +14,46 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Crear permisos
-        $permisoFinanzas = Permission::firstOrCreate([
-            'name' => 'ver finanzas',
-            'guard_name' => 'web',
-        ]);
+        // PERMISOS
+        $permisos = [
+            'ver ventas',
+            'ver reportes',
+            'gestionar clientes',
+            'ver finanzas',
+            'ver inventario',
+            'ver pagos',
+            'gestionar usuarios',
+        ];
 
-        $permisoVentas = Permission::firstOrCreate([
-            'name' => 'ver ventas',
-            'guard_name' => 'web',
-        ]);
+        foreach ($permisos as $permiso) {
+            Permission::firstOrCreate(['name' => $permiso, 'guard_name' => 'web']);
+        }
 
-        $permisoEditar = Permission::firstOrCreate([
-            'name' => 'editar productos',
-            'guard_name' => 'web',
-        ]);
+        // ROLES
+        $superAdmin = Role::firstOrCreate(['name' => 'super-admin', 'guard_name' => 'web']);
+        $superAdmin->givePermissionTo(Permission::all());
 
-        // Crear roles y asignar permisos
-        $admin = Role::firstOrCreate([
-            'name' => 'administrador',
-            'guard_name' => 'web',
-        ]);
-        $admin->givePermissionTo([$permisoFinanzas, $permisoVentas, $permisoEditar]);
+        $admin = Role::firstOrCreate(['name' => 'administracion', 'guard_name' => 'web']);
+        $admin->givePermissionTo(['gestionar usuarios', 'gestionar clientes']);
 
-        $cliente = Role::firstOrCreate([
-            'name' => 'cliente',
-            'guard_name' => 'web',
-        ]);
-        $cliente->givePermissionTo([$permisoVentas]);
+        $encargado_almacen = Role::firstOrCreate(['name' => 'encargado_almacen', 'guard_name' => 'web']);
+        $encargado_almacen->givePermissionTo(['ver finanzas', 'ver inventario', 'ver pagos']);
 
-        $vendedor = Role::firstOrCreate([
-            'name' => 'vendedor',
-            'guard_name' => 'web',
-        ]);
-        $vendedor->givePermissionTo([$permisoVentas]);
+        $encargado_comercial = Role::firstOrCreate(['name' => 'encargado_comercial', 'guard_name' => 'web']);
+        $encargado_comercial->givePermissionTo(['ver ventas', 'ver reportes', 'gestionar clientes']);
+        
+        $vendedor = Role::firstOrCreate(['name' => 'vendedor', 'guard_name' => 'web']);
+        $vendedor->givePermissionTo(['ver ventas']);
 
-        // Crear un usuario de prueba y asignarle rol
-        $user = Usuario::create([
-            'nombre' => 'Admin Test',
+        // USUARIO SUPER ADMIN
+        $user = Usuario::firstOrCreate([
             'correo' => 'admin@example.com',
-            'clave' => bcrypt('password'), // Asegúrate de usar bcrypt
+        ], [
+            'nombre' => 'Gerente General',
+            'clave' => bcrypt('password'),
         ]);
 
-        $user->assignRole('administrador');
-
-        // Asignar permiso directo (opcional)
-        $user->givePermissionTo('ver ventas');
+        $user->assignRole('super-admin');
     }
+
 }

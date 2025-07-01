@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 import { Link } from '@inertiajs/vue3';
 
@@ -10,8 +10,23 @@ import DropdownLink from '@/Components/DropdownLink.vue';
 const sidebarOpen = ref(false);
 const { props } = usePage();
 const user = props.auth?.user;
-console.log('User:', user);
+
+// Extraemos permisos en forma de lista
+const permissions = user?.permissions || [];
+
+const puedeVerVentas = computed(() => permissions.includes('ver ventas'));
+const puedeVerReportes = computed(() => permissions.includes('ver reportes'));
+const puedeVerFinanzas = computed(() => permissions.includes('ver finanzas'));
+const puedeGestionarUsuarios = computed(() => permissions.includes('gestionar usuarios'));
+
+/*const puedeAccederAlmacen = computed(() =>
+  permissions.includes('ver productos') ||
+  permissions.includes('crear productos') ||
+  permissions.includes('editar productos')
+);*/
+
 </script>
+
 
 <template>
   <div class="flex h-screen bg-gray-50">
@@ -44,24 +59,11 @@ console.log('User:', user);
             </Link>
           </li>
 
-          <!-- Solo administrador -->
-          <template v-if="user?.roles?.includes('administrador')">
-            <li>
-              <Link href="/clientes" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
-                    :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/clientes') }">
-                <!-- Icono -->
-                <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
-                </svg>
-                Clientes
-              </Link>
-            </li>
-
+          <!-- Gestión de Usuarios (Administración) -->
+          <template v-if="puedeGestionarUsuarios">
             <li>
               <Link href="/usuarios" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
                     :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/usuarios') }">
-                <!-- Icono -->
                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
@@ -69,46 +71,65 @@ console.log('User:', user);
                 Usuarios
               </Link>
             </li>
+          </template>
 
+          <!-- Finanzas -->
+          <template v-if="puedeVerFinanzas">
             <li>
-              <Link href="/licencias" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
-                    :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/licencias') }">
-                <!-- Icono -->
+              <Link href="/finanzas" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
+                    :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/finanzas') }">
                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                        d="M12 8c-1.5 0-2.5 1-2.5 2.5S10.5 13 12 13s2.5-1 2.5-2.5S13.5 8 12 8zm0 10a8 8 0 100-16 8 8 0 000 16z"/>
                 </svg>
-                Licencias
+                Finanzas
               </Link>
             </li>
           </template>
 
-          <!-- ADMIN y VENDEDOR -->
-          <template v-if="user?.roles?.some(r => ['administrador', 'vendedor'].includes(r))">
+          <!-- Ventas -->
+          <template v-if="puedeVerVentas">
             <li>
               <Link href="/ventas" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
                     :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/ventas') }">
-                <!-- Icono -->
                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8L6 5H3m4 8v4a2 2 0 002 2h10a2 2 0 002-2v-4m-6 4h.01M9 17h.01"/>
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8L6 5H3m4 8v4a2 2 0 002 2h10a2 2 0 002-2v-4"/>
                 </svg>
                 Ventas
               </Link>
             </li>
+          </template>
 
+          <!-- Reportes -->
+          <template v-if="puedeVerReportes">
             <li>
               <Link href="/reportes" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
                     :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/reportes') }">
-                <!-- Icono -->
                 <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M9 17v-2m3 2v-4m3 2v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        d="M9 17v-2m3 2v-4m3 2v-6M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                 </svg>
                 Reportes
               </Link>
             </li>
           </template>
+
+          <!--Permiso compartido con administración y comercial-->
+          <template v-if="permissions.includes('gestionar clientes')">
+            <li>
+              <Link href="/clientes" class="flex items-center p-2 text-gray-700 rounded-lg hover:bg-gray-100"
+                    :class="{ 'bg-blue-100 text-blue-700 border-r-4 border-blue-700': $page.url.startsWith('/clientes') }">
+                <!-- Icono -->
+                <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 13l4 4L19 7"/>
+                </svg>
+                Clientes
+              </Link>
+            </li>
+          </template>
+
 
           <!-- Logout -->
           <li>

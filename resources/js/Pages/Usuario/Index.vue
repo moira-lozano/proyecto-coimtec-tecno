@@ -68,8 +68,12 @@ const eliminar = (id) => {
                       <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm text-gray-900">{{ usuario.correo }}</div>
                       </td>
-                      <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="text-sm text-gray-900">{{ usuario.rol }}</div>
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                        <!-- Mostrar todos los roles si tiene más de uno -->
+                        <span v-if="usuario.roles && usuario.roles.length">
+                          {{ usuario.roles.map(r => r.name).join(', ') }}
+                        </span>
+                        <span v-else class="text-gray-400">Sin rol</span>
                       </td>
                       <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-3">
                         <Link
@@ -83,7 +87,7 @@ const eliminar = (id) => {
                           Ver
                         </Link>
                         <Link
-                          :href="route('usuarios.edit', usuario.id)"  
+                          :href="`/usuarios/${usuario.id}/edit`" 
                           class="inline-flex items-center px-3 py-1 border border-transparent text-xs leading-4 font-medium rounded-md text-blue-700 bg-blue-100 hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition ease-in-out duration-150"
                         >
                           <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
