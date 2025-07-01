@@ -7,15 +7,15 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({
-    name: '',
-    email: '',
-    password: '',
+    nombre: '',
+    correo: '',
+    clave: '',
     password_confirmation: '',
 });
 
 const submit = () => {
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => form.reset('clave', 'password_confirmation'),
     });
 };
 </script>

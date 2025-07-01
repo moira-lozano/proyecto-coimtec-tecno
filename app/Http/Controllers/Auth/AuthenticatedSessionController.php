@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,15 +47,8 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $user = Auth::user();
-
-        // Redirección según rol
-        return match ($user->rol) {
-            'cliente'       => redirect()->route('cliente.dashboard'),
-            'vendedor'      => redirect()->route('usuario.dashboard'),
-            'administrador' => redirect()->route('usuario.dashboard'),
-            default         => redirect()->route('dashboard'),
-        };
+        // Redirigir al dashboard después del login exitoso
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 
     /**

@@ -14,9 +14,9 @@ class UsuarioController extends Controller
 {
    public function dashboard()
     {
-        if (!in_array(Auth::user()->rol, ['administrador', 'vendedor'])) {
+        /* if (!in_array(Auth::user()->rol, ['administrador', 'vendedor'])) {
             abort(403); // Acceso denegado si no es admin o vendedor
-        }
+        } */
 
         return Inertia::render('Usuario/Dashboard', [
             'auth' => ['user' => Auth::user()],
