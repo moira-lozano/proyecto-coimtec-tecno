@@ -31,18 +31,13 @@ class HandleInertiaRequests extends Middleware
     {
         return array_merge(parent::share($request), [
             'auth' => [
-                'user' => fn () => $request->user()
-                    ? [
-                        'id' => $request->user()->id,
-                        'nombre' => $request->user()->nombre,
-                        'correo' => $request->user()->correo,
-                        'permissions' => $request->user()->getPermissionNames(), // ← importante
-                    ]
-                    : null,
-            ],
-            'flash' => [
-                'success' => fn () => $request->session()->get('success'),
-                'error' => fn () => $request->session()->get('error'),
+                'user' => fn () => $request->user() ? [
+                    'id' => $request->user()->id,
+                    'nombre' => $request->user()->nombre,
+                    'correo' => $request->user()->correo,
+                    'roles' => $request->user()->getRoleNames(), // Spatie roles
+                    'permissions' => $request->user()->getAllPermissions()->pluck('name'), // Spatie permisos
+                ] : null,
             ],
         ]);
     }

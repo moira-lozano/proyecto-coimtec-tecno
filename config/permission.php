@@ -26,6 +26,8 @@ return [
 
         'role' => Spatie\Permission\Models\Role::class,
 
+        'user' => App\Models\Usuario::class, // ← tu modelo personalizado
+
     ],
 
     'table_names' => [

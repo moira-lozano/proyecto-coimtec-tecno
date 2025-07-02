@@ -99,6 +99,8 @@ const props = defineProps({
 });
 
 const page = usePage();
+//usePage().props.auth.user
+
 const user = computed(() => page.props.auth?.user);
 const permissions = computed(() => {
   // Obtener permisos de diferentes formas posibles

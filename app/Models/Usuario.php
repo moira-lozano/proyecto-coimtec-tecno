@@ -12,6 +12,7 @@ class Usuario extends Authenticatable
     use Notifiable, HasRoles; 
 
     protected $table = 'usuarios';
+    protected $guard_name = 'web';
 
     protected $fillable = [
         'correo',
@@ -28,11 +29,6 @@ class Usuario extends Authenticatable
     {
         return $this->clave;
     }
-
-    /* public function getAuthIdentifierName()
-    {
-        return 'correo';
-    } */
 
 
     public function cliente()
