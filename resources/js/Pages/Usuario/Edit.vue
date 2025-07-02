@@ -67,7 +67,7 @@ const submit = () => {
 
             <div>
                 <label class="block text-sm font-medium text-gray-700">Carnet</label>
-                <input v-model="form.carnet" type="text" class="mt-1 block w-full rounded border-gray-300" required />
+                <input v-model="form.carnet" type="text" class="mt-1 block w-full rounded border-gray-300"  />
             </div>
 
             <div class="flex justify-end space-x-4 pt-4">

@@ -3,6 +3,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,6 +30,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// En routes/web.php
+Route::middleware('web')->group(function () {
+    // Rutas de autenticación
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+        ->name('login');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->name('logout');
+});
+
 // Rutas protegidas por permiso para CLIENTES
 Route::middleware(['auth', 'permission:gestionar clientes'])->group(function () {
     Route::controller(ClienteController::class)->prefix('clientes')->name('clientes.')->group(function () {
@@ -50,7 +61,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/', 'store')->name('store');
         Route::get('/{usuario}', 'show')->name('show');
         Route::get('/{usuario}/edit', 'edit')->name('edit');
-        Route::put('/{usuario}', 'update')->name('update');
+        Route::post('/{usuario}', 'update')->name('update');
         Route::delete('/{usuario}', 'destroy')->name('destroy');
     });
 

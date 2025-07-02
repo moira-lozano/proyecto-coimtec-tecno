@@ -16,16 +16,16 @@ defineProps({
 });
 
 const form = useForm({
-    correo: '',
-    clave: '',
-    remember: false,
-});
+  correo: '',
+  clave: '',
+  remember: false
+})
 
 const submit = () => {
-    form.post(route('login'), {
-        onFinish: () => form.reset('clave'),
-    });
-};
+  form.post(route('login'), {
+    onFinish: () => form.reset('clave'),
+  })
+}
 </script>
 
 <template>

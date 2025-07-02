@@ -9,6 +9,7 @@ use App\Models\Vendedor;
 use App\Models\Usuario;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UsuarioController extends Controller
 {
@@ -23,25 +24,30 @@ class UsuarioController extends Controller
         ]);
     }
 
-
     public function index()
     {
         return Inertia::render('Usuario/Index', [
-            'usuarios' => Usuario::all(),
+            'usuarios' => Usuario::with('roles')->get(), // Cargar usuarios con sus roles
+            //'roles' => Role::all(), // Todos los roles disponibles para selects/filtros
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Usuario/Create');
+        return Inertia::render('Usuario/Create', [
+            'roles' => Role::all()->pluck('name'), // Solo los nombres como array de strings
+        ]);
     }
 
     public function store(Request $request)
     {
+        // Obtener todos los nombres de roles válidos dinámicamente
+        $rolesValidos = Role::pluck('name')->toArray();
+        
         $request->validate([
             'correo' => 'required|email|unique:usuarios,correo',
             'clave' => 'required|min:6',
-            'rol' => ['required', 'string', Rule::in(['administrador', 'vendedor', 'cliente', 'cliente-canal'])],
+            'rol' => ['required', 'string', Rule::in($rolesValidos)], // Usar roles dinámicos
             'nombre' => 'required|string|max:255',
             'carnet' => 'required|string|max:255',
         ]);
@@ -53,6 +59,9 @@ class UsuarioController extends Controller
             'nombre' => $request->nombre,
         ]);
 
+        // También asignar el rol de Spatie al usuario
+        $usuario->assignRole($request->rol);
+
         if ($request->rol === 'vendedor') {
             Vendedor::create([
                 'carnet' => $request->carnet,
@@ -61,27 +70,29 @@ class UsuarioController extends Controller
             ]);
         }
 
-
         return redirect()->route('usuarios.index')->with('success', 'Usuario y Vendedor registrados');
     }
 
     public function edit(Usuario $usuario)
     {
-        $usuario->load('vendedor'); // Asegúrate de tener esta relación en el modelo Usuario
+        $usuario->load('vendedor');
 
         return Inertia::render('Usuario/Edit', [
             'usuario' => $usuario,
+            'roles' => Role::all()->pluck('name'), // Agregar roles para el edit
         ]);
     }
 
 
  public function update(Request $request, Usuario $usuario)
     {
+        $rolesValidos = Role::pluck('name')->toArray();
+        
         $request->validate([
             'nombre' => 'required|string|max:255',
             'correo' => ['required', 'email', Rule::unique('usuarios')->ignore($usuario->id)],
             'clave' => 'nullable|string|min:6',
-            'rol' => ['required', 'string', Rule::in(['administrador', 'vendedor', 'cliente', 'cliente-canal'])],
+            'rol' => ['required', 'string', Rule::in($rolesValidos)],
             'carnet' => 'nullable|string|max:255',
         ]);
 
@@ -94,6 +105,9 @@ class UsuarioController extends Controller
         }
 
         $usuario->save();
+        
+        // Sincronizar el rol de Spatie
+        $usuario->syncRoles([$request->rol]);
 
         if ($request->rol === 'vendedor') {
             $vendedor = Vendedor::where('id_usuario', $usuario->id)->first();

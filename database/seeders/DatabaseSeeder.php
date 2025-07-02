@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Usuario;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -15,18 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         // PERMISOS
         $permisos = [
             'ver ventas',
-            'ver reportes', 
-            'ver pagos',        // Nuevo
+            'ver reportes',
+            'ver pagos',
             'gestionar clientes',
-            'ver inventario',   
+            'ver inventario',  
             'gestionar usuarios',
             'ver marcas',
-            'ver categorias', 
+            'ver categorias',
             'ver licencias',
         ];
 
@@ -46,18 +43,62 @@ class DatabaseSeeder extends Seeder
 
         $encargado_comercial = Role::firstOrCreate(['name' => 'encargado_comercial', 'guard_name' => 'web']);
         $encargado_comercial->givePermissionTo(['ver ventas', 'ver reportes', 'ver pagos', 'gestionar clientes']);
-        
+       
         $vendedor = Role::firstOrCreate(['name' => 'vendedor', 'guard_name' => 'web']);
         $vendedor->givePermissionTo(['ver ventas']);
 
-        $user = Usuario::firstOrCreate([
+        // USUARIOS DE PRUEBA
+        
+        // Super Admin
+        $superAdminUser = Usuario::firstOrCreate([
             'correo' => 'admin@example.com',
         ], [
             'nombre' => 'Gerente General',
             'clave' => bcrypt('password'),
         ]);
+        $superAdminUser->assignRole('super-admin');
 
-        $user->assignRole('super-admin');
+        // Administrador
+        $adminUser = Usuario::firstOrCreate([
+            'correo' => 'administrador@example.com',
+        ], [
+            'nombre' => 'María Administradora',
+            'clave' => bcrypt('password'),
+        ]);
+        $adminUser->assignRole('administracion');
 
+        // Encargado de Almacén
+        $almacenUser = Usuario::firstOrCreate([
+            'correo' => 'almacen@example.com',
+        ], [
+            'nombre' => 'Carlos Almacén',
+            'clave' => bcrypt('password'),
+        ]);
+        $almacenUser->assignRole('encargado_almacen');
+
+        // Encargado Comercial
+        $comercialUser = Usuario::firstOrCreate([
+            'correo' => 'comercial@example.com',
+        ], [
+            'nombre' => 'Ana Comercial',
+            'clave' => bcrypt('password'),
+        ]);
+        $comercialUser->assignRole('encargado_comercial');
+
+        // Vendedor
+        $vendedorUser = Usuario::firstOrCreate([
+            'correo' => 'vendedor@example.com',
+        ], [
+            'nombre' => 'Pedro Vendedor',
+            'clave' => bcrypt('password'),
+        ]);
+        $vendedorUser->assignRole('vendedor');
+
+        $this->command->info('Usuarios creados:');
+        $this->command->info('Super Admin: admin@example.com / password');
+        $this->command->info('Administrador: administrador@example.com / password');
+        $this->command->info('Encargado Almacén: almacen@example.com / password');
+        $this->command->info('Encargado Comercial: comercial@example.com / password');
+        $this->command->info('Vendedor: vendedor@example.com / password');
     }
 }
